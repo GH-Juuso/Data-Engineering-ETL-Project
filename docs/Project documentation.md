@@ -1,4 +1,4 @@
-##Data selection
+#Data selection
 
 In our initial brainstorming, the most prominent ideas for the project were modelling each countries performance against their given odds in previous soccer World cups or to model the effects of weather on shipping routes. We agreed that we were more likely to get available data from the second option, so we started looking for data on global shipping to match with widely available weather data. However, the scope was revealed to be too broad, and we had trouble on getting shipping data that would allow us to pinpoint some kind of delays or disruptions. This prompted us to narrow the scope down to checking the effects of weather on a more local level and we decided to focus on single city’s public transport instead of shipping. We were able to find suitable data on disruptions in train traffic from the Netherlands, so we decided to model the effects of weather on the Amsterdam Central train delays.
 The selected data sources were an independent website “Rijden de Treinen” for train disruptions and open-meteo.com.
