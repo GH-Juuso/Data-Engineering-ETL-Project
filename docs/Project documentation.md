@@ -13,7 +13,7 @@ We are using 3 datasets in total:
 
 ## Extraction
 
-The data is accessed with Python scripts whcich download it locally. At this stage the data is kept on a one file per year per data source level to avoid possible issues with file size.
+The data from the websites is accessed with Python scripts whcich download it locally. From open-meteo we are using an API but Rijen de Treinen stores all the necessary data in CSV files that we just need to clean. At this stage the data is kept on a one file per year per data source level to avoid possible issues with file size.
 
 While deciding the data granularity, we discussed wether we would have the smallest grain be disruptions & weather by the day or by the hour. We decided to have the granularity be by the hour, since it would give us more accurate information about the correlation between weather and disruptions. Additinally, while doing the report we could aggregate from by the hour to by the day format, but not the other way around.
 
