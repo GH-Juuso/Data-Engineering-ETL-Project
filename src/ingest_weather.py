@@ -4,7 +4,7 @@ import urllib.parse
 from pathlib import Path
 
 # Project root
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 # Data layers
 DATA_DIR = PROJECT_ROOT / "data"
