@@ -8,10 +8,11 @@ The selected data sources were an independent website “Rijden de Treinen” fo
 
 ## Extraction
 
-The data is accessed with Python scripts whcich download it locally. At this stage the data is kept on a one file per year per data source level.
+The data is accessed with Python scripts whcich download it locally. At this stage the data is kept on a one file per year per data source level to avoid possible issues with file size.
 
 While deciding the data granularity, we discussed wether we would have the smallest grain be disruptions & weather by the day or by the hour. We decided to have the granularity be by the hour, since it would give us more accurate information about the correlation between weather and disruptions. Additinally, while doing the report we could aggregate from by the hour to by the day format, but not the other way around.
 
+## Transformation
 
 ## Medallion Architechture
 
