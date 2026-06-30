@@ -32,28 +32,26 @@ engine = create_engine(connection_url, fast_executemany=True)
 
 #%%
 # ----- FETCH DATA FROM DATABASE -----
-silver_train_services_asd = pd.read_sql("SELECT * FROM silver_train_services_asd", engine)
+silver_weather = pd.read_sql("SELECT * FROM silver_weather", engine)
 
 #%%
 # ----- VALIDATIONS
-validation_table = silver_train_services_asd #dont do a deep copy, a reference copy is good enough!
+validation_table = silver_weather #dont do a deep copy, a reference copy is good enough!
 validation_result_dict = {}
-validation_resuls_table_name = 'silver_train_services_asd_validation'
-# %%
-# ----- NUMBER OF ROWS
+validation_resuls_table_name = 'silver_weather_validation'
+
 rows_total = len(validation_table)
 validation_result_dict['rows_total'] = str(rows_total)
 
 validation_result_dict.update({f"{k}_is_null": v for k, v in validation_table.isna().sum().to_dict().items()})
 validation_result_dict.update({f"{k}_dtype": str(validation_table[k].dtype) for k in validation_table.columns})
-validation_result_dict.update({f"{k}_n_unique": validation_table[k].nunique() for k in ['stop_id', 'service_id']})
-validation_result_dict.update({f"{k}_n_duplicates": validation_table.duplicated(subset=[k]).sum() for k in ['stop_id', 'service_id']})
-validation_result_dict.update({f"{k}_n_negative": (validation_table[k] < 0).sum()for k in ['stop_id', 'service_id']})
-validation_result_dict["departure_after_arrival_count"] = (validation_table["arrival_time"] > validation_table["departure_time"]).sum()
+validation_result_dict.update({f"{k}_n_unique": validation_table[k].nunique() for k in ['temperature_2m']})
+validation_result_dict.update({f"{k}_n_duplicates": validation_table.duplicated(subset=[k]).sum() for k in ['temperature_2m']})
+validation_result_dict.update({f"{k}_n_negative": (validation_table[k] < 0).sum()for k in ['rain', 'snowfall', 'precipitation', 'wind_speed_10m', 'snow_depth']})
 
 
 # %%
-# ----- WRITING silver_train_services_asd_validation TO DATABASE
+# ----- WRITING silver_weather_validation TO DATABASE
 clean_dict = {k: (v.item() if hasattr(v, "item") else v) for k, v in validation_result_dict.items()}
 
 validation_df = pd.DataFrame(list(clean_dict.items()), columns=['check_description', 'check_result'])
