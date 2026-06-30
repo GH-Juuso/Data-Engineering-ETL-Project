@@ -10,10 +10,7 @@ from urllib.parse import quote_plus
 ROOT_DIR = Path("../") # One step down..
 CREDENTIALS_FILE = ROOT_DIR / "private/credentials.csv"
 print(f"Project root set to: {ROOT_DIR.resolve()}")
-if ~CREDENTIALS_FILE.exists():
-    print(f"Could not find credentials at: {CREDENTIALS_FILE}")
-    print("Aborting disruptions_bronze_to_silver.py...")
-    sys.exit(1)
+print(CREDENTIALS_FILE.resolve())
 
 # %%
 # ----- LOAD ALL FILES INTO DATAFRAME -----
@@ -73,9 +70,12 @@ disruption_silver.rename(columns={"rdt_id" : "source_id",
                                     inplace=True)
 
 # %%
+print((CREDENTIALS_FILE).resolve())
+
+# %%
 # ----- FETCHING CREDENTIALS -----
 try:
-    credentials = pd.read_csv(ROOT_DIR / CREDENTIALS_FILE)
+    credentials = pd.read_csv(CREDENTIALS_FILE)
 except FileNotFoundError:
     print("Failed to load credentials: credentials.csv not found")
 except:
@@ -100,7 +100,7 @@ engine = create_engine(connection_url, fast_executemany=True)
 import time
 start = time.time()
 
-table_name = "disruption_silver"
+table_name = "silver_disruption"
 
 with engine.connect() as conn:
     disruption_silver.to_sql(table_name, engine, if_exists="replace", index=False)
