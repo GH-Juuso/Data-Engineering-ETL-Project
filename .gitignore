@@ -1,0 +1,4 @@
+# Private credentials and secrets
+private/
+credentials.csv
+*.env
