@@ -9,6 +9,7 @@ from urllib.parse import quote_plus
 
 ROOT_DIR = Path("../") # One step down..
 CREDENTIALS_FILE = ROOT_DIR / "private/credentials.csv"
+
 print(f"Project root set to: {ROOT_DIR.resolve()}")
 print(CREDENTIALS_FILE.resolve())
 
