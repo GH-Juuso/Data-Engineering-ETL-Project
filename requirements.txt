@@ -2,3 +2,4 @@ pandas
 requests
 sqlalchemy
 pyodbc
+bs4

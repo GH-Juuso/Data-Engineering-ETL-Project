@@ -8,7 +8,7 @@ import urllib.request
 from pathlib import Path
 from datetime import datetime, timezone
 
-# 1. Months to download 
+# 1. Months to download
 # Generate all months from 2023-01 through 2025-12
 MONTHS = [f"{year}-{month:02d}" for year in range(2023, 2026) for month in range(1, 13)]
 
