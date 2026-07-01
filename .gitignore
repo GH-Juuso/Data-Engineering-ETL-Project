@@ -1,5 +1,6 @@
 # Private credentials and secrets
 private/
+data/
 credentials.csv
 .env
 *.env

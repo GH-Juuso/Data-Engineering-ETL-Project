@@ -18,19 +18,19 @@ BRONZE_DIR = Path(__file__).resolve().parent.parent / "data" / "bronze" / "train
 BASE_URL = "https://opendata.rijdendetreinen.nl/public/services/services-{month}.csv.gz"
 
 # %%
-def download_month(month: str) -> dict:
+def download_month(month: str, verbose: bool = False) -> dict:
     """Download one month's gzipped CSV and return metadata for the run log."""
     url = BASE_URL.format(month=month)
     out_path = BRONZE_DIR / f"services-{month}.csv.gz"
 
     if out_path.exists():
-        print(f"[skip] {out_path} already exists")
+        if verbose: print(f"[skip] {out_path} already exists")
     else:
-        print(f"[download] {url}")
+        if verbose: print(f"[download] {url}")
         req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
         with urllib.request.urlopen(req) as response, open(out_path, "wb") as f:
             f.write(response.read())
-        print(f"[done] saved to {out_path}")
+        if verbose: print(f"[done] saved to {out_path}")
 
     return {
         "source_name": "rijden_de_treinen",
@@ -41,10 +41,10 @@ def download_month(month: str) -> dict:
     }
 
 # %%
-def main():
+def main(verbose: bool = False):
     BRONZE_DIR.mkdir(parents=True, exist_ok=True)
 
-    run_log = [download_month(m) for m in MONTHS]
+    run_log = [download_month(m, verbose) for m in MONTHS]
 
     # Write a simple run-metadata file alongside the data (good Bronze practice)
     log_path = BRONZE_DIR / "_load_log.csv"
@@ -54,7 +54,7 @@ def main():
         writer.writeheader()
         writer.writerows(run_log)
 
-    print(f"\nRun log written to {log_path}")
+    if verbose: print(f"\nRun log written to {log_path}")
 
 # %%
 if __name__ == "__main__":
