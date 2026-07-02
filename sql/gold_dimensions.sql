@@ -33,7 +33,7 @@ SELECT DISTINCT
     MAX(station_name) AS station_name,
     CASE WHEN station_code = 'ASD' THEN 52.37916 ELSE NULL END,  -- Amsterdam Centraal (ASD)
     CASE WHEN station_code = 'ASD' THEN 4.9001612 ELSE NULL END
-FROM dbo.silver_train_services
+FROM dbo.silver_train_services_asd
 GROUP BY station_code;
 
 
